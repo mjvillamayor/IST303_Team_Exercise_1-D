@@ -1,81 +1,68 @@
-# Team Exercise #2: Wikipedia Reference Downloader
+# Team Exercise #2
 
-## Overview
-This project refactors a Wikipedia reference downloader that implements three different approaches:
-1. Sequential execution
-2. Concurrent execution with threads
-3. Concurrent execution with processes
+## Review Process
 
-## Improvements Made
+### Issues Identified
 
-### Issue 1: User Input
-- Added functionality to get a search term from the user
+Issue 1: No User Input
+- The original code uses a hardcoded search term "general artificial intelligence"
+- Users cannot specify their own search terms
+
+Issue 2: No Dedicated Output Directory
+- Files are saved directly to the current directory
+- No organization of downloaded files
+
+Issue 3: Poor Error Handling
+- The code lacks proper error handling
+- Exceptions could cause the program to crash
+
+Issue 4: Multiprocessing Implementation Issues
+- The process function doesn't have access to the output directory
+- This could cause issues when trying to save files in the correct location
+
+### Tasks Created
+
+1. Implement user input functionality with validation
+2. Create a dedicated "wiki_dl" directory for output files
+3. Add proper error handling throughout the code
+4. Fix the multiprocessing implementation to handle output directory
+5. Add comprehensive documentation and comments
+6. Create a main function to organize execution flow
+7. Improve file handling with proper encoding
+
+### Description of Issues and Solutions
+
+Issue 1: No User Input
+- Solution: Added a `get_search_term()` function that prompts the user for input
 - Implemented validation to ensure the term is at least 4 characters
-- Default to "generative artificial intelligence" if the input is too short
+- If the input is too short, it defaults to "generative artificial intelligence"
 
-### Issue 2: File Organization
-- Created a "wiki_dl" directory to store all downloaded files
+Issue 2: No Dedicated Output Directory
+- Solution: Created a `create_output_directory()` function that creates a "wiki_dl" directory
 - Updated all file paths to save files in this directory
+- This keeps the downloaded files organized and separate from other files
 
-### Issue 3: Code Structure
-- Added proper type hints for better code readability
-- Added comprehensive docstrings for all functions
-- Improved error handling throughout the code
-- Created a proper `main()` function to organize the execution flow
+Issue 3: Poor Error Handling
+- Solution: Added try-except blocks throughout the code
+- Added error reporting to help identify issues
+- Wrapped the main execution in a try-except block to prevent crashes
 
-### Issue 4: Multiprocessing Fix
-- Modified the `dl_and_save_process` function to accept both the item and output directory
+Issue 4: Multiprocessing Implementation Issues
+- Solution: Modified the `dl_and_save_process` function to accept both the item and output directory
 - Created a list of tuples to pass both parameters to the process function
+- This ensures that processes have access to the correct output directory
 
-### Other Improvements
-- Added proper UTF-8 encoding for file operations
-- Improved console output with more informative messages
-- Made the code more modular and easier to extend
-- Added better error handling to prevent crashes
+### New Functionality Added
 
-## How to Run
-1. Make sure you have the Wikipedia package installed:
-   ```
-   pip install wikipedia
-   ```
-2. Run the script:
-   ```
-   python team_ex_2.py
-   ```
-3. Enter a search term when prompted (must be at least 4 characters)
-4. The script will download references for related topics using all three methods
-5. Files will be saved in the "wiki_dl" directory
+1. User Input:
+   - Users can now input their own search term
+   - If the term is less than 4 characters, it defaults to "generative artificial intelligence"
 
-## Performance Comparison
-The script will display the execution time for each method, allowing you to compare their performance.
-```
+2. Dedicated Output Directory:
+   - A new directory named "wiki_dl" is created to store the .txt files
+   - All downloaded files are saved to this directory
 
-### Step 5: Install the required package
-
-Before running the code, make sure you have the Wikipedia package installed. Open a terminal in VS Code (Terminal > New Terminal) and run:
-
-```bash
-pip install wikipedia
-```
-
-### Step 6: Commit and push your changes
-
-In VS Code, you can use the Source Control tab (Ctrl+Shift+G) to commit and push your changes:
-
-1. Stage the changes by clicking the + next to each file
-2. Enter a commit message like "Add refactored team_ex_2.py with improvements and documentation"
-3. Click the checkmark to commit
-4. Click the "..." menu and select "Push" to push your changes to GitHub
-
-Alternatively, you can use the terminal in VS Code:
-
-```bash
-git add team_ex_2.py README_team_ex_2.md
-```
-
-```bash
-git commit -m "Add refactored team_ex_2.py with improvements and documentation"
-```
-
-```bash
-git push
+3. Improved Structure:
+   - Added a main function to organize the execution flow
+   - Added proper documentation and type hints
+   - Improved error handling and reporting
